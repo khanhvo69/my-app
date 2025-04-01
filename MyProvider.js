@@ -4,27 +4,37 @@ import MyContext from './MyContext';
 class MyProvider extends Component {
   constructor(props) {
     super(props);
-    this.state = { // global state
-      // variables
+    this.state = { 
       token: '',
-      username: '',
-      // functions
-      setToken: this.setToken,
-      setUsername: this.setUsername
+      customer: null,
+      mycart: [],
     };
   }
+
   setToken = (value) => {
     this.setState({ token: value });
   }
-  setUsername = (value) => {
-    this.setState({ username: value });
+
+  setCustomer = (value) => {
+    this.setState({ customer: value });
   }
+
+  setMycart = (value) => {
+    this.setState({ mycart: value });
+  }
+
   render() {
     return (
-      <MyContext.Provider value={this.state}>
+      <MyContext.Provider value={{
+        ...this.state,
+        setToken: this.setToken,
+        setCustomer: this.setCustomer,
+        setMycart: this.setMycart
+      }}>
         {this.props.children}
       </MyContext.Provider>
     );
   }
 }
+
 export default MyProvider;
